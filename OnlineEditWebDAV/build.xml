@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+
+<project name="OnlineEditWebDAV" default="deploy-all"
+	basedir=".">
+
+    <!-- change settings for your envirionment -->
+    <property name="alfresco.home" value="/Users/totanitakeshi/Desktop/alfresco/alfresco-comm42d-study" />
+    <property name="project.dir" value="." />
+    <property name="alfresco.lib.dir"
+            value="${alfresco.home}/tomcat/webapps/alfresco/WEB-INF/lib" />
+    <property name="alfresco.web.dir"
+            value="${alfresco.home}/tomcat/webapps/alfresco/WEB-INF" />
+    <property name="alfresco.ext.dir"
+            value="${alfresco.home}/tomcat/shared/classes/alfresco/extension" />
+
+    <property name="build.dir" value="${project.dir}/build" />
+    <property name="config.dir" value="${project.dir}/config" />
+    <property name="web.dir" value="${project.dir}/web" />
+
+    <property name="jar.file" value="${build.dir}/lib/online_webdav.jar" />
+    <property name="ext.dir" value="${config.dir}/alfresco/extension" />
+
+
+
+	<property name="encoding" value="UTF-8" />
+	
+    <path id="alfresco.classpath">
+            <fileset dir="${alfresco.home}/tomcat/lib">
+                    <include name="*.jar" />
+            </fileset>
+            <fileset dir="${alfresco.lib.dir}">
+                    <include name="*.jar" />
+            </fileset>
+    </path>
+
+    <target name="clean">
+    		<delete dir="${build.dir}/classes" />
+    		<delete dir="${build.dir}/dist" />
+            <delete dir="${build.dir}/lib" />
+    </target>
+
+    <target name="mkdirs" depends="clean">
+            <mkdir dir="${build.dir}/dist" />
+            <mkdir dir="${build.dir}/lib" />
+    </target>
+
+    <path id="class.path">
+            <dirset dir="${build.dir}" />
+            <path refid="alfresco.classpath" />
+    </path>
+
+    <target name="compile" depends="mkdirs">
+            <mkdir dir="${build.dir}/classes" />
+            <javac
+            	 debug="on" encoding="${encoding}"
+                    classpathref="class.path" srcdir="${project.dir}/src" destdir="${build.dir}/classes" >
+            </javac>
+    </target>
+
+    <target name="package-jar" depends="compile">
+            <jar destfile="${jar.file}">
+                    <fileset dir="${build.dir}/classes" 
+                            includes="**/*.class" />
+            </jar>
+    </target>
+
+    <target name="deploy-all" depends="package-jar">
+
+            <copy todir="${alfresco.ext.dir}" overwrite="true">
+                    <fileset dir="${ext.dir}" />
+            </copy>
+            <copy todir="${alfresco.lib.dir}">
+                    <fileset dir="${build.dir}/lib" includes="*.jar">
+                    </fileset>
+            </copy>
+    	
+        	<copy todir="${alfresco.web.dir}">
+                <fileset dir="${web.dir}"  />
+        	</copy>
+    </target>
+
+
+</project>

@@ -1,0 +1,2 @@
+model.ticket = session.getTicket();
+

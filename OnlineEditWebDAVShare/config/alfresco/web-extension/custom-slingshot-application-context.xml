@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
+ 
+<beans>
+ 
+   <bean id="webscripts.resources" class="org.springframework.extensions.surf.util.ResourceBundleBootstrapComponent">
+      <property name="resourceBundles">
+         <list>
+            <value>webscripts.messages.webscripts</value>
+            <value>alfresco.messages.common</value>
+            <value>alfresco.messages.slingshot</value>
+            <value>alfresco.web-extension.messages.onlineedit</value>
+         </list>
+      </property>
+   </bean>
+
+</beans>

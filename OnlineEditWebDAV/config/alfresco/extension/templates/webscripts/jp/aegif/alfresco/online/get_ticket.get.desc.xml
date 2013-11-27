@@ -1,0 +1,8 @@
+<webscript>
+  <shortname>get ticket</shortname>
+  <description>get ticket of current user</description>
+  <url>/online/webdav/auth/get_ticket</url>
+  <format default="json">argument</format>
+  <authentication>user</authentication>
+  <transaction allow="readonly">required</transaction>
+</webscript>

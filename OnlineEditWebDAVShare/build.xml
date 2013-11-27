@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<project name="OnlineEditWebDAVShare" default="deploy-all"
+	basedir=".">
+
+    <!-- change settings for your envirionment -->
+    <property name="alfresco.home" value="/Users/totanitakeshi/Desktop/alfresco/alfresco-comm42d-study" />
+    <property name="project.dir" value="." />
+    <property name="share.web.dir"
+            value="${alfresco.home}/tomcat/webapps/share" />
+    <property name="alfresco.ext.dir"
+            value="${alfresco.home}/tomcat/shared/classes/alfresco/web-extension" />
+
+    <property name="build.dir" value="${project.dir}/build" />
+    <property name="config.dir" value="${project.dir}/config" />
+    <property name="web.dir" value="${project.dir}/web" />
+
+    <property name="jar.file" value="${build.dir}/lib/online_webdav.jar" />
+    <property name="ext.dir" value="${config.dir}/alfresco/web-extension" />
+
+	<property name="encoding" value="UTF-8" />
+	
+    <target name="deploy-all" >
+
+            <copy todir="${alfresco.ext.dir}" overwrite="true">
+                    <fileset dir="${ext.dir}" />
+            </copy>
+    	
+        	<copy todir="${share.web.dir}">
+                <fileset dir="${web.dir}"  />
+        	</copy>
+    </target>
+
+
+</project>
